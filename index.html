@@ -325,7 +325,7 @@ button[onclick="transfSel()"],#bAus{display:none!important}
 label.field:has(#pD),label.field:has(#rD){display:none}#st1 .help,#st1 .field:has(#fl){display:none}.naocoord #tbP,.naocoord #tbR,.naocoord #tbO,.naocoord #goObs,.naocoord #anuBox,.naocoord #trBox,.naocoord #st4 .row,.naocoord #st4 #sav{display:none!important}.nt{width:100%;border-collapse:collapse;font-size:13px}.nt th,.nt td{padding:6px 8px;border-bottom:1px solid #8884;text-align:center}.nt td:first-child,.nt th:first-child{text-align:left}@media(max-width:640px){.nt,.nt tbody{display:block}.nt thead{display:none}.nt tr{display:grid;grid-template-columns:repeat(4,1fr);gap:2px 4px;padding:10px;margin:8px 0;border:1px solid #8886;border-radius:12px}.nt td{border:0;padding:3px 2px;font-size:12px}.nt td:first-child,.nt td.tp,.nt td.nl{grid-column:1/-1;text-align:left}.nt td:first-child{font-weight:700;font-size:14px}.nt td.tp{font-size:11px;opacity:.75}.nt td[data-l]::before{content:attr(data-l);display:block;font-size:10px;opacity:.65;font-weight:400}.nt td.ac{grid-column:span 2;font-size:16px;background:#8881;border-radius:8px;margin-top:4px}}</style>
 </head>
 <body class="wide">
-<header class="hero"><div class="brand"><div class="logo">✓</div><div><h1>Corretor GETECO Tarde · 3º Trimestre</h1><p>GETECO · Avaliação Trimestral Multidisciplinar · 3º Trimestre 2026 · 24/11/2026</p></div><button id="thm" type="button" aria-label="Alternar tema claro/escuro" title="Tema claro/escuro">🌓</button></div><nav class="tabs"><button id="tbC" class="on">📝 Correção<span class="tb-b" id="tbB" hidden></span></button><button id="tbP">📊 Panorama</button><button id="tbR">📑 Relatórios</button><button id="tbN">🔎 Notas</button></nav></header>
+<header class="hero"><div class="brand"><div class="logo">✓</div><div><h1>Corretor GETECO Tarde · 3º Trimestre</h1><p>GETECO · Avaliação Trimestral Multidisciplinar · 3º Trimestre 2026 · 24/11/2026</p></div><button id="thm" type="button" aria-label="Alternar tema claro/escuro" title="Tema claro/escuro">🌓</button></div><nav class="tabs"><button id="tbC" class="on">📝 Correção<span class="tb-b" id="tbB" hidden></span></button><button id="tbP">📊 Panorama</button><button id="tbR">📑 Relatórios</button><button id="tbN">🔎 Notas</button><button id="tbG">📋 Gabaritos</button></nav></header>
 <main id="tabC">
 
 <section class="step" id="st1"><div class="sh" id="h1" role="button" tabindex="0" aria-expanded="true"><span class="num">1</span><div><h2>Turma e alunos</h2><p class="sub">Os alunos da turma já vêm carregados</p></div><span class="chip" id="c1">pendente</span></div>
@@ -361,9 +361,13 @@ label.field:has(#pD),label.field:has(#rD){display:none}#st1 .help,#st1 .field:ha
 <div class="row" style="margin-top:14px"><button class="ghost sm" id="bkx">💾 Baixar backup</button><label class="btn ghost sm" for="bki" style="padding:6px 11px;font-size:13px;border-radius:9px">📂 Mesclar backup</label><input id="bki" type="file" accept=".json,application/json"><button class="ghost sm" id="clr" style="color:var(--bad)">🗑️ Apagar dados salvos</button></div>
 <div id="sav" class="mut" style="margin-top:8px;font-size:12.5px;text-align:center"></div></section>
 </main>
+<main id="tabG" hidden style="max-width:760px"><section class="step"><div class="sh"><span class="num">📋</span><div><h2>Gabaritos</h2><p class="sub">Respostas corretas cadastradas no sistema · confira se estão certas</p></div></div>
+<div class="info-n" style="margin:4px 0 12px;padding:10px 12px;border-radius:10px;border:1px solid #8886;background:rgba(36,87,214,.10);font-size:13.5px;line-height:1.45">ℹ️ Estes são os gabaritos que o sistema usa para corrigir. Se encontrar alguma letra diferente da prova, avise a coordenação antes de lançar as notas.</div>
+<label class="field">Turma / bloco<select id="gT"></select></label><div style="margin:10px 0"><button type="button" class="big" id="gPdf">📄 Baixar / compartilhar PDF dos gabaritos</button><button type="button" class="big" id="gXls" style="margin-top:8px">📊 Baixar / compartilhar Excel dos gabaritos</button><div id="gMsg" class="mut" style="margin-top:6px;text-align:center"></div></div><div id="gOut"></div></section></main>
 <main id="tabN" hidden><section class="step"><div class="sh"><span class="num">🔎</span><div><h2>Consultar notas</h2><p class="sub">Acertos e notas dos alunos por turma · prova de 24/11</p></div></div>
+<div class="info-n" style="margin:4px 0 12px;padding:10px 12px;border-radius:10px;border:1px solid #8886;background:rgba(36,87,214,.10);font-size:13.5px;line-height:1.45">ℹ️ <b>Aviso:</b> aqui você vê apenas as notas das provas que <b>você mesmo lançou</b> nesta turma. Alunos cuja prova ainda não foi lançada aparecem como “não lançado”.</div>
 <div style="display:flex;gap:10px;flex-wrap:wrap"><label class="field" style="flex:1;min-width:140px">Turma<select id="nT"></select></label><label class="field" style="flex:2;min-width:180px">Buscar aluno<input type="text" id="nQ" placeholder="Digite o nome…"></label></div>
-<div style="margin:10px 0"><button type="button" class="big" id="nPdf">📄 Baixar / compartilhar PDF do quadro</button><div id="nMsg" class="mut" style="margin-top:6px;text-align:center"></div></div><div id="nOut"></div></section></main>
+<div style="margin:10px 0"><button type="button" class="big" id="nPdf">📄 Baixar / compartilhar PDF do quadro</button><button type="button" class="big" id="nXls" style="margin-top:8px">📊 Baixar / compartilhar Excel do quadro</button><div id="nMsg" class="mut" style="margin-top:6px;text-align:center"></div></div><div id="nOut"></div></section></main>
 <main id="tabP" hidden>
 <section class="step"><div class="sh"><span class="num">📊</span><div><h2>Panorama das respostas</h2><p class="sub">Acertos por turma, dia e disciplina</p></div></div>
 <div class="ctl"><label class="field">Turma<select id="pT"></select></label><label class="field">Dia<select id="pD"><option value="0">Dia 1 e Dia 2 (separados)</option><option value="1">Só Dia 1</option><option value="2">Só Dia 2</option></select></label><label class="field">Ordenar alunos<select id="pO"><option value="nome">Nome</option><option value="maior">Maior acerto</option><option value="menor">Menor acerto</option></select></label><label class="field" style="flex:1;min-width:140px">Buscar aluno<input type="text" id="pQ" placeholder="Digite o nome…"></label></div>
@@ -1465,12 +1469,87 @@ async function pdfQuadro(){const v=g("nT").value,m=g("nMsg");if(!v){m.textConten
  try{const file=new File([blob],fn,{type:"application/pdf"});
   if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"Quadro "+v,text:"Quadro de resultados · "+v+" · 24/11/2026"});m.textContent="PDF compartilhado: "+fn;return}catch(e){if(e&&e.name==="AbortError"){m.textContent="Envio cancelado.";return}}}}catch(e){}
  baixarArq(blob,fn);m.textContent="PDF baixado: "+fn+". Anexe-o ao e-mail ou ao WhatsApp para enviar."}
+async function xlsQuadro(){const v=g("nT").value,m=g("nMsg");if(!v){m.textContent="Escolha uma turma.";return}
+ const D=dadosTurma(v),R=[["Nº","Aluno","Prova",...DISC[1].map(z=>z[0]+" (de "+(z[2]-z[1]+1)+")"),"Acertos (de "+NV(1)+")","Nota (de "+VALOR+")"]];
+ D.all.forEach((x,i)=>{const d=x.s&&x.s.d[1],b=[i+1,x.a.nome,x.a.tipo==="adaptada"?"Adaptada":"Regular"];
+  if(d)R.push([...b,...d.disc,d.tot,+d.nota.toFixed(2)]);else R.push([...b,...DISC[1].map(()=>"-"),"-","-"])});
+ const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(R),("Quadro "+v).replace(/[\\\/?*\[\]:]/g,"").slice(0,31));
+ const data=XLSX.write(wb,{type:"array",bookType:"xlsx"}),blob=new Blob([data],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+ await entregarArq(blob,"quadro_"+v.replace(/[^\wÀ-ú]+/g,"_")+".xlsx","Quadro "+v,"Quadro de resultados · "+v+" · 24/11/2026",m,"Excel")}
 const _a=aba;
 aba=function(n){const N=g("tabN"),B=g("tbN"),nc=document.body.classList.contains("naocoord");
  if(nc&&(n===1||n===2||n===3))n=0;
  if(n===4){TABS.forEach(id=>{if(g(id))g(id).hidden=id!=="tabN"});BT.forEach(id=>{if(g(id))g(id).classList.toggle("on",id==="tbN")});document.body.classList.remove("wide");renderNotas();window.scrollTo(0,0);return}
  N.hidden=true;B.classList.remove("on");_a.call(this,n)};
-g("tbN").onclick=()=>aba(4);g("nT").onchange=renderNotas;g("nQ").oninput=renderNotas;g("nPdf").onclick=pdfQuadro})();
+g("tbN").onclick=()=>aba(4);g("nT").onchange=renderNotas;g("nQ").oninput=renderNotas;g("nPdf").onclick=pdfQuadro;g("nXls").onclick=xlsQuadro})();
+</script>
+<script>
+(function(){
+const g=id=>document.getElementById(id);
+const BLK=["6º ABC","6º DEF","7º ABC","7º DE"];
+function opcoes(){
+ const nc=document.body.classList.contains("naocoord");
+ if(!nc)return BLK.map(b=>[b,b]);
+ const t=g("turma"),v=t?t.value:"";
+ const b=BL[v];return b?[[b,v+" ("+b+")"]]:[];
+}
+function renderGab(){
+ const s=g("gT"),ops=opcoes(),cur=ops.some(o=>o[0]===s.value)?s.value:(ops[0]?ops[0][0]:"");
+ s.innerHTML=ops.map(o=>`<option value="${o[0]}"${o[0]===cur?" selected":""}>${o[1]}</option>`).join("");
+ if(!cur){g("gOut").innerHTML='<div class="empty">Selecione uma turma na aba Correção.</div>';return}
+ const R=GAB[cur+"|regular"]||"",A=GAB[cur+"|adaptada"]||"",ex=x=>x||"?";
+ let h='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:14px"><thead><tr>'
+  +["Nº","Disciplina","Regular","Adaptada"].map((x,i)=>`<th style="padding:7px 8px;border-bottom:2px solid #8886;text-align:${i===1?"left":"center"}">${x}</th>`).join("")+"</tr></thead><tbody>";
+ for(const z of DISC[1]){for(let q=z[1];q<=z[2];q++){
+  const an=isAn(1,q),st=an?"text-decoration:line-through;opacity:.55":"";
+  h+=`<tr style="${q===z[1]?"border-top:2px solid #8886":""}"><td style="padding:5px 8px;text-align:center;border-bottom:1px solid #8883">${String(q).padStart(2,"0")}</td><td style="padding:5px 8px;border-bottom:1px solid #8883">${q===z[1]?"<b>"+z[0]+"</b>":'<span style="opacity:.55">'+z[0]+"</span>"}${an?' <small>(anulada)</small>':""}</td><td style="padding:5px 8px;text-align:center;border-bottom:1px solid #8883;font-weight:700;${st}">${ex(R[q-1])}</td><td style="padding:5px 8px;text-align:center;border-bottom:1px solid #8883;font-weight:700;${st}">${ex(A[q-1])}</td></tr>`}}
+ g("gOut").innerHTML=h+'</tbody></table></div><div class="mut" style="margin-top:8px">25 questões · cada uma vale '+(VALOR/25).toFixed(1).replace(".",",")+' ponto(s) quando nenhuma está anulada.</div>';
+}
+const ant=aba;
+aba=function(n){
+ const G=g("tabG"),B=g("tbG");
+ if(n===5){
+  ["tabC","tabP","tabR","tabO","tabN"].forEach(id=>{if(g(id))g(id).hidden=true});
+  ["tbC","tbP","tbR","tbO","tbN"].forEach(id=>{if(g(id))g(id).classList.remove("on")});
+  G.hidden=false;B.classList.add("on");document.body.classList.remove("wide");renderGab();window.scrollTo(0,0);return}
+ G.hidden=true;B.classList.remove("on");ant.call(this,n)};
+g("tbG").onclick=()=>aba(5);g("gT").onchange=renderGab;
+})();
+</script>
+<script>
+async function entregarArq(blob,fn,titulo,texto,msg,rot){
+ try{const file=new File([blob],fn,{type:blob.type});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
+   try{await navigator.share({files:[file],title:titulo,text:texto});msg.textContent=rot+" compartilhado: "+fn;return}
+   catch(e){if(e&&e.name==="AbortError"){msg.textContent="Envio cancelado.";return}}}}catch(e){}
+ baixarArq(blob,fn);msg.textContent=rot+" baixado: "+fn+". Anexe-o ao e-mail ou ao WhatsApp para enviar."}
+function linhasGab(b){const R=GAB[b+"|regular"]||"",A=GAB[b+"|adaptada"]||"",L=[];
+ for(const z of DISC[1])for(let q=z[1];q<=z[2];q++)L.push([q,z[0],R[q-1]||"?",A[q-1]||"?",isAn(1,q)]);return L}
+function mkPDFGab(b){
+ const W=595,H=842,M=40,pS=s=>String(s).replace(/–/g,"-").replace(/[^\x00-\xff]/g,"?").replace(/([\\()])/g,"\\$1");
+ const T=(x,y,s,z,bd,c,al)=>{const w=pS(s).length*z*(bd?.56:.5);x=al==="c"?x-w/2:x;return`BT /${bd?"F2":"F1"} ${z} Tf ${c||"0 0 0"} rg ${x.toFixed(1)} ${y.toFixed(1)} Td (${pS(s)}) Tj ET\n`};
+ const Rc=(x,y,w,h,c)=>`${c} rg ${x.toFixed(1)} ${y.toFixed(1)} ${w.toFixed(1)} ${h} re f\n`;
+ const cw=[50,215,125,125],tw=cw.reduce((p,x)=>p+x,0),rh=22,L=linhasGab(b),now=new Date();
+ let c=Rc(0,H-78,W,78,"0.12 0.20 0.55")+T(M,H-36,"Avaliação Trimestral Multidisciplinar · 3º Trimestre de 2026",14,1,"1 1 1")+T(M,H-58,"GETECO · Gabaritos · Bloco "+b+" · Prova de 24/11/2026",10.5,0,"0.85 0.9 1");
+ let y=H-110;c+=Rc(M,y,tw,rh,"0.2 0.3 0.65");let x=M;
+ ["Nº","Disciplina","Regular","Adaptada"].forEach((s,i)=>{c+=T(i===1?x+8:x+cw[i]/2,y+7,s,10,1,"1 1 1",i===1?"l":"c");x+=cw[i]});
+ L.forEach((r,i)=>{y-=rh;if(i%2===0)c+=Rc(M,y,tw,rh,"0.94 0.95 0.99");x=M;
+  [String(r[0]).padStart(2,"0"),r[1]+(r[4]?" (anulada)":""),r[2],r[3]].forEach((s,j)=>{c+=T(j===1?x+8:x+cw[j]/2,y+7,s,j>1?11:10,j>1,"0.1 0.1 0.1",j===1?"l":"c");x+=cw[j]})});
+ c+="0.6 0.65 0.8 RG 0.5 w "+M+" "+y+" "+tw+" "+(H-110+rh-y)+" re S\n";
+ c+=T(M,28,"Gerado em "+now.toLocaleDateString("pt-BR")+" "+now.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})+" · confira com a prova impressa",8,0,"0.4 0.4 0.4");
+ const o=[];o[1]="<< /Type /Catalog /Pages 2 0 R >>";o[2]="<< /Type /Pages /Kids [5 0 R] /Count 1 >>";
+ o[3]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>";o[4]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>";
+ o[5]="<< /Type /Page /Parent 2 0 R /MediaBox [0 0 "+W+" "+H+"] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>";o[6]="<< /Length "+c.length+" >>\nstream\n"+c+"endstream";
+ let s="%PDF-1.4\n",off=[];for(let i=1;i<o.length;i++){off[i]=s.length;s+=i+" 0 obj\n"+o[i]+"\nendobj\n"}
+ const xr=s.length;s+="xref\n0 "+o.length+"\n0000000000 65535 f \n"+off.slice(1).map(v=>String(v).padStart(10,"0")+" 00000 n \n").join("")+"trailer\n<< /Size "+o.length+" /Root 1 0 R >>\nstartxref\n"+xr+"\n%%EOF";
+ const u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i)&255;return u}
+document.getElementById("gPdf").onclick=async()=>{const b=document.getElementById("gT").value,m=document.getElementById("gMsg");if(!b){m.textContent="Escolha uma turma.";return}
+ await entregarArq(new Blob([mkPDFGab(b)],{type:"application/pdf"}),"gabaritos_"+b.replace(/[^\wÀ-ú]+/g,"_")+".pdf","Gabaritos "+b,"Gabaritos · "+b+" · 24/11/2026",m,"PDF")};
+document.getElementById("gXls").onclick=async()=>{const b=document.getElementById("gT").value,m=document.getElementById("gMsg");if(!b){m.textContent="Escolha uma turma.";return}
+ const R=[["Nº","Disciplina","Regular","Adaptada"],...linhasGab(b).map(r=>[r[0],r[1]+(r[4]?" (anulada)":""),r[2],r[3]])],wb=XLSX.utils.book_new();
+ XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(R),("Gabaritos "+b).slice(0,31));
+ const data=XLSX.write(wb,{type:"array",bookType:"xlsx"});
+ await entregarArq(new Blob([data],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}),"gabaritos_"+b.replace(/[^\wÀ-ú]+/g,"_")+".xlsx","Gabaritos "+b,"Gabaritos · "+b+" · 24/11/2026",m,"Excel")};
 </script>
 <script>
 (function(){const g=document.createElement("div"),E=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
