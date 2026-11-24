@@ -358,7 +358,6 @@ label.field:has(#pD),label.field:has(#rD){display:none}#st1 .help,#st1 .field:ha
 
 <section class="step" id="st4"><div class="sh"><span class="num">4</span><div><h2>Baixar resultado</h2><p class="sub">Planilha Excel com turma, nomes, notas e respostas</p></div></div>
 <div class="row expRow" style="gap:8px">
-<button id="expPdf" class="big" style="flex:1">📄 Exportar PDF</button>
 <button id="exp" class="big" style="flex:1">📊 Baixar e enviar Excel de notas</button>
 </div><div id="msg" class="mut" style="margin-top:8px;text-align:center"></div>
 <div class="row" style="margin-top:14px"><button class="ghost sm" id="bkx">💾 Baixar backup</button><label class="btn ghost sm" for="bki" style="padding:6px 11px;font-size:13px;border-radius:9px">📂 Mesclar backup</label><input id="bki" type="file" accept=".json,application/json"><button class="ghost sm" id="clr" style="color:var(--bad)">🗑️ Apagar dados salvos</button></div>
@@ -695,7 +694,7 @@ function render(){
   $("stats").innerHTML=(n1+n2)?`<div class="tile"><b>${n1}/${nA}</b><span>Dia 1</span></div><div class="tile"><b>${n2}/${nA}</b><span>Dia 2</span></div><div class="tile"><b style="color:var(${alerts?"--warn":"--ok"})">${alerts}</b><span>com avisos</span></div>`:"";
   const feito1=!!nA&&!!$("turma").value;$("st1").classList.toggle("fold",feito1&&!$("st1").classList.contains("aberta"));$("h1").setAttribute("aria-expanded",String(!$("st1").classList.contains("fold")));
   const nT=alunos.length-nA;$("c1").textContent=nA?$("turma").value+" · "+nA+" alunos"+(nT?" ("+nT+" transf.)":""):"pendente";$("st1").classList.toggle("done",!!nA&&!!$("turma").value);
-  $("c2").textContent=(n1+n2)?`D1 ${n1} · D2 ${n2}`:"nenhuma folha";$("st2").classList.toggle("done",!!nA&&n1===nA&&n2===nA);
+  $("c2").textContent=(n1+n2)?`D1 ${n1} · D2 ${n2}`:"nenhuma folha";$("st2").classList.toggle("done",!!nA&&n1===nA);
   $("c3").textContent=(n1+n2)?(alerts?alerts+" para revisar":"tudo certo"):"aguardando";$("st3").classList.toggle("done",!!(n1+n2)&&!alerts);
   $("exp").disabled=!(nA&&(n1+n2));if(cur)store[cur]={alunos,folhas};if(!$("tabP").hidden||!$("tabR").hidden)renderPan();else panSujo=true;salvar()}
 window.del=(d,i)=>{folhas[d]=folhas[d].filter(f=>f.ai!==i);render()};
@@ -1061,7 +1060,7 @@ async function exportarResultado(formato){
   );
 }
 $("exp").onclick=()=>exportarResultado("xlsx");
-$("expPdf").onclick=()=>exportarResultado("pdf");
+
 /* ---------- armazenamento local (localStorage) ---------- */
 const LS_KEY="corretor_gabaritos_geteco_trim3_2026";
 let carregado=false,saveT=0;
@@ -1156,7 +1155,7 @@ render();
   g("rf").hidden=!tot;g("nores").style.display=tot&&!vis?"block":"none";
   const B=g("tbB");let n1=0,n2=0;
   try{n1=folhas[1].filter(f=>ativo(f.ai)).length;n2=folhas[2].filter(f=>ativo(f.ai)).length}catch(e){}
-  const nA=nAtivos();B.hidden=!nA;B.textContent=nA?Math.min(n1,n2)+"/"+nA:""}
+  const nA=nAtivos();B.hidden=!nA;B.textContent=nA?n1+"/"+nA:""}
  const _r=render;render=function(){_r.apply(this,arguments);pos()};
  g("resQ").oninput=pos;
  g("resF").onclick=e=>{const b=e.target.closest("button");if(!b)return;fil=b.dataset.f;
@@ -1585,7 +1584,7 @@ g.style.cssText="position:fixed;inset:0;z-index:50;background:var(--bg,#0f172a);
 let adm=E("cg_adm")||"coord2026";const C=document.createElement("style");
 C.textContent="#gt input,#gt textarea{width:100%;box-sizing:border-box;padding:10px;border-radius:10px;border:1px solid #888;font:inherit;margin:6px 0}#gt{max-width:560px;width:100%}#gt button{padding:10px 16px;margin:4px 4px 0 0}";document.head.appendChild(C);
 function login(){g.innerHTML='<div id="gt"><h2>Corretor GETECO Tarde · 3º Trimestre</h2><p>Digite o código da sua turma (ex.: 6A, 7C).</p><input id="gc" autocomplete="off" placeholder="Código da turma"><div id="ge" style="color:#f87171"></div><button id="gb">Entrar</button><button id="gtu" type="button" class="tuBtn">📖 Tutorial: como usar<small>Primeira vez? Veja o passo a passo com imagens</small></button></div>';
- const go=()=>{const v=document.getElementById("gc").value.trim();const vl=v.toLowerCase();if(vl===adm.toLowerCase()||(!E("cg_adm")&&vl==="coord"))return admin();const m=v.match(/^([5-9])\s*º?\s*ª?\s*([A-F])$/i);if(!m)return document.getElementById("ge").textContent="Código inválido. Use o formato 6A, 7B…";entrar(m[1]+"º ano "+m[2].toUpperCase())};
+ const go=()=>{const v=document.getElementById("gc").value.trim();const vl=v.toLowerCase();if(vl===adm.toLowerCase()||(!E("cg_adm")&&vl==="coord"))return entrar(null);const m=v.match(/^([5-9])\s*º?\s*ª?\s*([A-F])$/i);if(!m)return document.getElementById("ge").textContent="Código inválido. Use o formato 6A, 7B…";entrar(m[1]+"º ano "+m[2].toUpperCase())};
  document.getElementById("gb").onclick=go;document.getElementById("gtu").onclick=()=>window.abrirTutorial();document.getElementById("gc").onkeydown=e=>{if(e.key==="Enter")go()}}
 function entrar(tur){g.remove();document.body.classList.toggle("naocoord",!!tur);const t=document.getElementById("turma");
  if(tur){if(![...t.options].some(o=>o.value===tur))t.add(new Option(tur,tur));[...t.options].forEach(o=>{if(o.value&&o.value!==tur)o.remove()});t.value=tur;t.dispatchEvent(new Event("change"))}
