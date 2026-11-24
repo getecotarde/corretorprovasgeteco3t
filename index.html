@@ -357,7 +357,10 @@ label.field:has(#pD),label.field:has(#rD){display:none}#st1 .help,#st1 .field:ha
 <div id="stats" class="stats"></div><div class="rf" id="rf" hidden><input type="text" id="resQ" placeholder="🔎 Buscar aluno nas folhas lidas…" aria-label="Buscar aluno"><div class="seg2" id="resF"><button type="button" data-f="" class="on">Todas</button><button type="button" data-f="w">Com avisos</button><button type="button" data-f="ok">Sem avisos</button></div><button type="button" class="ghost sm" id="resAll">Expandir tudo</button></div><div id="res"><div class="empty">As folhas lidas aparecerão aqui.</div></div><div class="nores" id="nores">Nenhuma folha encontrada com esse filtro.</div></section>
 
 <section class="step" id="st4"><div class="sh"><span class="num">4</span><div><h2>Baixar resultado</h2><p class="sub">Planilha Excel com turma, nomes, notas e respostas</p></div></div>
-<button id="exp" class="big">📤 Baixar e enviar Excel</button><div id="msg" class="mut" style="margin-top:8px;text-align:center"></div>
+<div class="row" style="gap:8px">
+<button id="expPdf" class="big" style="flex:1">📄 Exportar PDF</button>
+<button id="exp" class="big" style="flex:1">📊 Baixar e enviar Excel de notas</button>
+</div><div id="msg" class="mut" style="margin-top:8px;text-align:center"></div>
 <div class="row" style="margin-top:14px"><button class="ghost sm" id="bkx">💾 Baixar backup</button><label class="btn ghost sm" for="bki" style="padding:6px 11px;font-size:13px;border-radius:9px">📂 Mesclar backup</label><input id="bki" type="file" accept=".json,application/json"><button class="ghost sm" id="clr" style="color:var(--bad)">🗑️ Apagar dados salvos</button></div>
 <div id="sav" class="mut" style="margin-top:8px;font-size:12.5px;text-align:center"></div></section>
 </main>
@@ -1005,7 +1008,7 @@ const tg1=()=>{$("st1").classList.toggle("aberta");render()};$("h1").onclick=tg1
 $("tbC").onclick=()=>aba(0);$("tbP").onclick=()=>aba(1);$("tbR").onclick=()=>aba(2);drawRT();
 
 
-$("exp").onclick=async()=>{
+async function exportarResultado(formato){
   const turma=$("turma").value.trim(),wb=XLSX.utils.book_new(),H=["Turma","Nome"];
   for(const d of [1]){DISC[d].forEach(x=>H.push(`${x[0]} (Prova de 24/11)`));H.push(`Acertos Prova de 24/11`)}H.push("Acertos total","Nota final (de "+VALOR+")");
   const rows=[H],alert=[["Dia","Aluno","Problema"]];
@@ -1029,16 +1032,35 @@ $("exp").onclick=async()=>{
   XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(alert),"Alertas");
   const data=XLSX.write(wb,{type:"array",bookType:"xlsx"});
   const blob=new Blob([data],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
-  const fn="resultado_"+(turma||"turma").replace(/[^\wÀ-ú]+/g,"_")+".xlsx";
-  try{const file=new File([blob],fn,{type:blob.type});
-    if(navigator.canShare&&navigator.canShare({files:[file]})){
-      try{await navigator.share({files:[file],title:"Resultado "+turma,text:"Resultado da Avaliação Trimestral · "+turma+" · 24/11/2026"});$("msg").textContent="Arquivo compartilhado: "+fn;return}
-      catch(e){if(e&&e.name==="AbortError"){$("msg").textContent="Envio cancelado.";return}}}}catch(e){}
-  try{const dl=window.claude&&await claude.use("downloads");
-    if(dl)await dl.save({filename:fn,data});
-    else{const u=URL.createObjectURL(blob),l=document.createElement("a");l.href=u;l.download=fn;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}
-    $("msg").textContent="Arquivo baixado: "+fn+". Anexe-o ao e-mail ou ao WhatsApp para enviar."}
-  catch(e){$("msg").textContent="Download cancelado ou indisponível."}};
+  const base="resultado_"+(turma||"turma").replace(/[^\\wÀ-ú]+/g,"_");
+  if(formato==="pdf"){
+    const paginas=wb.SheetNames.map(nome=>`<section class="pagina"><h2>${nome}</h2>${XLSX.utils.sheet_to_html(wb.Sheets[nome])}</section>`).join("");
+    const janela=window.open("","_blank");
+    if(!janela){$("msg").textContent="O navegador bloqueou a janela do PDF. Permita pop-ups e tente novamente.";return}
+    janela.document.open();
+    janela.document.write(`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>${base}.pdf</title><style>
+      body{font:12px Arial,sans-serif;color:#111;margin:18px}h1{font-size:18px}h2{font-size:15px;margin:0 0 10px}
+      .pagina{margin-bottom:28px;page-break-after:always}.pagina:last-child{page-break-after:auto}
+      table{border-collapse:collapse;width:100%;font-size:10px}td,th{border:1px solid #999;padding:4px;text-align:left}
+      th{background:#e8eefc} @page{size:landscape;margin:12mm}
+    </style></head><body><h1>Resultado da avaliação — ${turma}</h1>${paginas}
+    <script>window.onload=()=>{window.focus();window.print()}<\/script></body></html>`);
+    janela.document.close();
+    $("msg").textContent="PDF preparado. Na janela de impressão, escolha “Salvar como PDF”.";
+    return;
+  }
+  const fn=base+".xlsx";
+  await entregarArq(
+    blob,
+    fn,
+    "Resultado "+turma,
+    "Resultado da Avaliação Trimestral · "+turma+" · 24/11/2026",
+    $("msg"),
+    "Excel"
+  );
+}
+$("exp").onclick=()=>exportarResultado("xlsx");
+$("expPdf").onclick=()=>exportarResultado("pdf");
 /* ---------- armazenamento local (localStorage) ---------- */
 const LS_KEY="corretor_gabaritos_geteco_trim3_2026";
 let carregado=false,saveT=0;
