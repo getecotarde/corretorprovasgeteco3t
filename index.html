@@ -322,10 +322,10 @@ button[onclick="transfSel()"],#bAus{display:none!important}
  .tbl.rp tfoot{display:table-footer-group}
  .tbl.rp tr{break-inside:avoid;page-break-inside:avoid}
 }
-label.field:has(#pD),label.field:has(#rD){display:none}#st1 .help,#st1 .field:has(#fl){display:none}.naocoord #tbP,.naocoord #tbR,.naocoord #tbO,.naocoord #goObs,.naocoord #anuBox,.naocoord #trBox,.naocoord #st4 .row,.naocoord #st4 #sav{display:none!important}.nt{width:100%;border-collapse:collapse;font-size:13px}.nt th,.nt td{padding:6px 8px;border-bottom:1px solid #8884;text-align:center}.nt td:first-child,.nt th:first-child{text-align:left}@media(max-width:640px){.nt,.nt tbody{display:block}.nt thead{display:none}.nt tr{display:grid;grid-template-columns:repeat(4,1fr);gap:2px 4px;padding:10px;margin:8px 0;border:1px solid #8886;border-radius:12px}.nt td{border:0;padding:3px 2px;font-size:12px}.nt td:first-child,.nt td.tp,.nt td.nl{grid-column:1/-1;text-align:left}.nt td:first-child{font-weight:700;font-size:14px}.nt td.tp{font-size:11px;opacity:.75}.nt td[data-l]::before{content:attr(data-l);display:block;font-size:10px;opacity:.65;font-weight:400}.nt td.ac{grid-column:span 2;font-size:16px;background:#8881;border-radius:8px;margin-top:4px}}</style>
+label.field:has(#pD),label.field:has(#rD){display:none}#st1 .help,#st1 .field:has(#fl){display:none}.naocoord #tbP,.naocoord #tbR,.naocoord #tbO,.naocoord #goObs,.naocoord #anuBox,.naocoord #trBox,.naocoord #st4 .row,.naocoord #st4 #sav,.naocoord .coordOnly{display:none!important}.nt{width:100%;border-collapse:collapse;font-size:13px}.nt th,.nt td{padding:6px 8px;border-bottom:1px solid #8884;text-align:center}.nt td:first-child,.nt th:first-child{text-align:left}@media(max-width:640px){.nt,.nt tbody{display:block}.nt thead{display:none}.nt tr{display:grid;grid-template-columns:repeat(4,1fr);gap:2px 4px;padding:10px;margin:8px 0;border:1px solid #8886;border-radius:12px}.nt td{border:0;padding:3px 2px;font-size:12px}.nt td:first-child,.nt td.tp,.nt td.nl{grid-column:1/-1;text-align:left}.nt td:first-child{font-weight:700;font-size:14px}.nt td.tp{font-size:11px;opacity:.75}.nt td[data-l]::before{content:attr(data-l);display:block;font-size:10px;opacity:.65;font-weight:400}.nt td.ac{grid-column:span 2;font-size:16px;background:#8881;border-radius:8px;margin-top:4px}}</style>
 </head>
 <body class="wide">
-<header class="hero"><div class="brand"><div class="logo">✓</div><div><h1>Corretor GETECO Tarde · 3º Trimestre</h1><p>GETECO · Avaliação Trimestral Multidisciplinar · 3º Trimestre 2026 · 24/11/2026</p></div><button id="thm" type="button" aria-label="Alternar tema claro/escuro" title="Tema claro/escuro">🌓</button></div><nav class="tabs"><button id="tbC" class="on">📝 Correção<span class="tb-b" id="tbB" hidden></span></button><button id="tbP">📊 Panorama</button><button id="tbR">📑 Relatórios</button><button id="tbN">🔎 Notas</button><button id="tbG">📋 Gabaritos</button></nav></header>
+<header class="hero"><div class="brand"><div class="logo">✓</div><div><h1>Corretor GETECO Tarde · 3º Trimestre</h1><p>GETECO · Avaliação Trimestral Multidisciplinar · 3º Trimestre 2026 · 24/11/2026</p></div><button id="tuH" type="button" aria-label="Abrir tutorial">📖 Tutorial</button><button id="thm" type="button" aria-label="Alternar tema claro/escuro" title="Tema claro/escuro">🌓</button></div><nav class="tabs"><button id="tbC" class="on">📝 Correção<span class="tb-b" id="tbB" hidden></span></button><button id="tbP">📊 Panorama</button><button id="tbR">📑 Relatórios</button><button id="tbN">🔎 Notas</button><button id="tbG">📋 Gabaritos</button></nav></header>
 <main id="tabC">
 
 <section class="step" id="st1"><div class="sh" id="h1" role="button" tabindex="0" aria-expanded="true"><span class="num">1</span><div><h2>Turma e alunos</h2><p class="sub">Os alunos da turma já vêm carregados</p></div><span class="chip" id="c1">pendente</span></div>
@@ -362,6 +362,7 @@ label.field:has(#pD),label.field:has(#rD){display:none}#st1 .help,#st1 .field:ha
 <button id="exp" class="big" style="flex:1">📊 Baixar e enviar Excel de notas</button>
 </div><div id="msg" class="mut" style="margin-top:8px;text-align:center"></div>
 <div class="row" style="margin-top:14px"><button class="ghost sm" id="bkx">💾 Baixar backup</button><label class="btn ghost sm" for="bki" style="padding:6px 11px;font-size:13px;border-radius:9px">📂 Mesclar backup</label><input id="bki" type="file" accept=".json,application/json"><button class="ghost sm" id="clr" style="color:var(--bad)">🗑️ Apagar dados salvos</button></div>
+<div class="coordOnly" style="margin-top:14px;text-align:center"><label class="btn ghost sm" for="impX" style="padding:6px 11px;font-size:13px;border-radius:9px">📥 Importar planilhas dos professores</label><input id="impX" type="file" accept=".xlsx,.xls" multiple><div id="impM" class="mut" style="margin-top:6px;font-size:12.5px"></div></div>
 <div id="sav" class="mut" style="margin-top:8px;font-size:12.5px;text-align:center"></div></section>
 </main>
 <main id="tabG" hidden style="max-width:760px"><section class="step"><div class="sh"><span class="num">📋</span><div><h2>Gabaritos</h2><p class="sub">Respostas corretas cadastradas no sistema · confira se estão certas</p></div></div>
@@ -1491,11 +1492,16 @@ async function pdfQuadro(){const v=g("nT").value,m=g("nMsg");if(!v){m.textConten
  try{const file=new File([blob],fn,{type:"application/pdf"});
   if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"Quadro "+v,text:"Quadro de resultados · "+v+" · 24/11/2026"});m.textContent="PDF compartilhado: "+fn;return}catch(e){if(e&&e.name==="AbortError"){m.textContent="Envio cancelado.";return}}}}catch(e){}
  baixarArq(blob,fn);m.textContent="PDF baixado: "+fn+". Anexe-o ao e-mail ou ao WhatsApp para enviar."}
+function respAoa(v){if(cur)store[cur]={alunos,folhas};const T=store[v],n=NQ[1],R=[["Turma","Nome","Prova",...Array.from({length:n},(_,i)=>"Q"+(i+1))]];if(!T)return R;
+ T.alunos.forEach((a,i)=>{if(a.transf)return;const f=T.folhas[1].find(x=>x.ai===i);
+  if(!f||f.erro){R.push([v,a.nome,a.tipo,"SEM FOLHA"]);return}
+  R.push([v,a.nome,a.tipo,...Array.from({length:n},(_,q)=>{const x=f.resp[q+1]||["","BRANCO"];return x[1]==="BRANCO"?"-":x[0]+(x[1]?" (dupla)":"")})])});return R}
 async function xlsQuadro(){const v=g("nT").value,m=g("nMsg");if(!v){m.textContent="Escolha uma turma.";return}
  const D=dadosTurma(v),R=[["Nº","Aluno","Prova",...DISC[1].map(z=>z[0]+" (de "+(z[2]-z[1]+1)+")"),"Acertos (de "+NV(1)+")","Nota (de "+VALOR+")"]];
  D.all.forEach((x,i)=>{const d=x.s&&x.s.d[1],b=[i+1,x.a.nome,x.a.tipo==="adaptada"?"Adaptada":"Regular"];
   if(d)R.push([...b,...d.disc,d.tot,+d.nota.toFixed(2)]);else R.push([...b,...DISC[1].map(()=>"-"),"-","-"])});
  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(R),("Quadro "+v).replace(/[\\\/?*\[\]:]/g,"").slice(0,31));
+ try{XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(respAoa(v)),"Respostas")}catch(e){}
  const data=XLSX.write(wb,{type:"array",bookType:"xlsx"}),blob=new Blob([data],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
  await entregarArq(blob,"quadro_"+v.replace(/[^\wÀ-ú]+/g,"_")+".xlsx","Quadro "+v,"Quadro de resultados · "+v+" · 24/11/2026",m,"Excel")}
 const _a=aba;
@@ -1578,18 +1584,122 @@ document.getElementById("gXls").onclick=async()=>{const b=document.getElementByI
 g.style.cssText="position:fixed;inset:0;z-index:50;background:var(--bg,#0f172a);color:var(--tx,#e5e7eb);display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto";document.body.appendChild(g);
 let adm=E("cg_adm")||"coord2026";const C=document.createElement("style");
 C.textContent="#gt input,#gt textarea{width:100%;box-sizing:border-box;padding:10px;border-radius:10px;border:1px solid #888;font:inherit;margin:6px 0}#gt{max-width:560px;width:100%}#gt button{padding:10px 16px;margin:4px 4px 0 0}";document.head.appendChild(C);
-function login(){g.innerHTML='<div id="gt"><h2>Corretor GETECO Tarde · 3º Trimestre</h2><p>Digite o código da sua turma (ex.: 6A, 7C).</p><input id="gc" autocomplete="off" placeholder="Código da turma"><div id="ge" style="color:#f87171"></div><button id="gb">Entrar</button></div>';
+function login(){g.innerHTML='<div id="gt"><h2>Corretor GETECO Tarde · 3º Trimestre</h2><p>Digite o código da sua turma (ex.: 6A, 7C).</p><input id="gc" autocomplete="off" placeholder="Código da turma"><div id="ge" style="color:#f87171"></div><button id="gb">Entrar</button><button id="gtu" type="button" class="tuBtn">📖 Tutorial: como usar<small>Primeira vez? Veja o passo a passo com imagens</small></button></div>';
  const go=()=>{const v=document.getElementById("gc").value.trim();if(v===adm)return admin();const m=v.match(/^([5-9])\s*º?\s*ª?\s*([A-F])$/i);if(!m)return document.getElementById("ge").textContent="Código inválido. Use o formato 6A, 7B…";entrar(m[1]+"º ano "+m[2].toUpperCase())};
- document.getElementById("gb").onclick=go;document.getElementById("gc").onkeydown=e=>{if(e.key==="Enter")go()}}
+ document.getElementById("gb").onclick=go;document.getElementById("gtu").onclick=()=>window.abrirTutorial();document.getElementById("gc").onkeydown=e=>{if(e.key==="Enter")go()}}
 function entrar(tur){g.remove();document.body.classList.toggle("naocoord",!!tur);const t=document.getElementById("turma");
  if(tur){if(![...t.options].some(o=>o.value===tur))t.add(new Option(tur,tur));[...t.options].forEach(o=>{if(o.value&&o.value!==tur)o.remove()});t.value=tur;t.dispatchEvent(new Event("change"))}
  const b=document.createElement("div");b.style.cssText="position:fixed;right:8px;bottom:8px;z-index:9;background:#1e293b;color:#fff;padding:6px 10px;border-radius:10px;font-size:12px";b.innerHTML="👤 "+(tur||"Coordenação")+' · <a href="#" style="color:#93c5fd">Sair</a>';b.querySelector("a").onclick=e=>{e.preventDefault();location.reload()};document.body.appendChild(b)}
 function admin(){const ks=[];["6º ABC","6º DEF","7º ABC","7º DE"].forEach(x=>["regular","adaptada"].forEach(t=>ks.push(x+"|"+t)));
- g.innerHTML='<div id="gt"><h2>Coordenação</h2><b>Gabaritos</b> (25 letras por linha, formato bloco|modalidade=letras)<textarea id="ag" rows="9">'+ks.map(k=>k+"="+(GAB[k]||"")).join("\n")+'</textarea><b>Novo código da coordenação</b> (opcional)<input id="an"><button id="as">Salvar</button><button id="ao">Abrir o corretor</button><div id="am"></div></div>';
+ g.innerHTML='<div id="gt"><h2>Coordenação</h2><b>Gabaritos</b> (25 letras por linha, formato bloco|modalidade=letras)<textarea id="ag" rows="9">'+ks.map(k=>k+"="+(GAB[k]||"")).join("\n")+'</textarea><b>Importar planilhas dos professores</b> (Excel “quadro” enviado por eles)<br><label class="btn" for="aiF" style="margin:6px 0">📥 Escolher planilhas…</label><input id="aiF" type="file" accept=".xlsx,.xls" multiple><div id="aiM" style="margin-bottom:8px"></div><b>Novo código da coordenação</b> (opcional)<input id="an"><button id="as">Salvar</button><button id="ao">Abrir o corretor</button><div id="am"></div></div>';
  document.getElementById("as").onclick=()=>{document.getElementById("ag").value.split("\n").forEach(l=>{const m=l.split("=");if(m.length<2)return;const v=m[1].toUpperCase().replace(/[^ABCD]/g,"");if(v.length===25)GAB[m[0].trim()]=v});
   const n=document.getElementById("an").value.trim();try{localStorage.setItem("cg_gab2",JSON.stringify(GAB));if(n){localStorage.setItem("cg_adm",n);adm=n}}catch(e){}document.getElementById("am").textContent="Salvo. Linhas sem 25 letras válidas foram ignoradas."};
- document.getElementById("ao").onclick=()=>entrar(null)}
+ document.getElementById("ao").onclick=()=>entrar(null);document.getElementById("aiF").onchange=e=>importarPlanilhas([...e.target.files],document.getElementById("aiM"),e.target)}
 login()})();
+</script>
+<style>
+#tuH{margin-left:auto;background:rgba(255,255,255,.2);min-height:40px;padding:0 12px;font-size:14px;border-radius:12px;white-space:nowrap}#tuH+#thm{margin-left:8px}
+#gt .tuBtn{display:flex;width:100%;flex-direction:column;align-items:center;gap:2px;margin:14px 0 0;padding:14px 16px;font-size:17px;background:linear-gradient(135deg,#12805c,#2457d6)}#gt .tuBtn small{font-size:12.5px;font-weight:500;opacity:.9}
+#tuO{position:fixed;inset:0;z-index:80;background:var(--bg);color:var(--tx);overflow:auto;display:none;-webkit-overflow-scrolling:touch}
+.tuW{max-width:680px;margin:0 auto;padding:calc(env(safe-area-inset-top,0px) + 12px) 12px calc(env(safe-area-inset-bottom,0px) + 40px)}
+.tuT{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;background:var(--bg);padding:8px 0 10px}.tuT h1{flex:1;margin:0;font-size:19px}
+.tuI{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}.tuI a{font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:99px;background:var(--priS);color:var(--pri);text-decoration:none}
+.tuS{background:var(--card);border:1px solid var(--bd);border-radius:16px;box-shadow:var(--sh);padding:16px;margin-bottom:14px;scroll-margin-top:64px}
+.tuS h2{margin:0 0 4px;font-size:17px;display:flex;gap:10px;align-items:center}.tuS h2 .num{width:32px;height:32px;font-size:16px}
+.tuS p{margin:6px 0}.tuS ul{margin:6px 0;padding-left:20px}.tuS li{margin:3px 0}
+.tm{border:1.5px solid var(--bd);border-radius:14px;background:var(--bg);padding:12px;margin:10px 0;font-size:13px}
+.tm .cap{font-size:11.5px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
+.tm .fk{border:1.5px solid var(--bd);background:var(--card);border-radius:10px;padding:9px 11px;margin:4px 0}
+.tm .fb{display:block;text-align:center;font-weight:700;color:#fff;border-radius:10px;padding:9px;margin:5px 0;background:linear-gradient(135deg,var(--pri),var(--pri2))}.tm .fb.g{background:transparent;color:var(--pri);border:1.5px solid var(--bd)}
+.hl{outline:3px solid var(--warn);outline-offset:2px;position:relative}.hl::after{content:"👆";position:absolute;right:6px;bottom:-14px;font-size:20px}
+.tuG{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:560px){.tuG{grid-template-columns:1fr}}
+.tuC{border:1.5px solid var(--bd);border-radius:14px;padding:12px}.tuC h3{margin:0 0 4px;font-size:15px}
+.tb{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--okS);color:var(--ok)}.tb.w{background:var(--warnS);color:var(--warn)}
+.fo{background:#fff;color:#222;border:1px solid #bbb;border-radius:8px;padding:10px 14px;position:relative}.fo i{position:absolute;width:11px;height:11px;background:#111}
+.bb{display:flex;gap:6px;align-items:center;margin:4px 0;font-size:12px}.bb b{width:24px}.bb span{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--mut);display:grid;place-items:center;font-size:10px;color:var(--mut)}.bb span.on{background:var(--pri);border-color:var(--pri);color:#fff}
+.tuLink{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:#fff;font-weight:700;border-radius:12px;padding:13px;margin-top:10px;background:linear-gradient(135deg,#12805c,#2457d6)}
+.tuX{display:grid;grid-template-columns:repeat(3,1fr);font-size:12px}.tuX div{border:1px solid var(--bd);padding:5px 7px;background:var(--card)}.tuX .h{background:var(--okS);color:var(--ok);font-weight:700}
+</style><div id="tuO" role="dialog" aria-modal="true" aria-label="Tutorial"><div class="tuW">
+<div class="tuT"><h1>📖 Como usar o Corretor</h1><button type="button" class="ghost sm" id="tuC">✕ Fechar</button></div>
+<p class="mut" style="margin:0 0 10px">Passo a passo para corrigir a prova e entregar as notas. Leva poucos minutos.</p>
+<div class="tuI"><a href="#tu1">1 Entrar</a><a href="#tu2">2 Alunos</a><a href="#tu3">3 Lançar</a><a href="#tu4">4 Conferir</a><a href="#tu5">5 Enviar notas</a></div>
+
+<section class="tuS" id="tu1"><h2><span class="num">1</span>Entrar na sua turma</h2>
+<p>Na tela inicial, digite o <b>código da sua turma</b> (ex.: <b>6A</b>, <b>7C</b>) e toque em <b>Entrar</b>. Você verá somente a sua turma.</p>
+<div class="tm"><div class="cap">Tela inicial</div><b style="font-size:14px">Corretor GETECO Tarde</b><div class="fk hl" style="margin-top:8px;color:var(--mut)">6A</div><div class="fb" style="margin-top:14px">Entrar</div></div></section>
+
+<section class="tuS" id="tu2"><h2><span class="num">2</span>Conferir a turma e os alunos</h2>
+<p>No <b>Passo 1 · Turma e alunos</b>, os nomes já vêm carregados. Confira se está tudo certo:</p>
+<ul><li>Falta alguém? Toque em <b>➕ Adicionar aluno</b>.</li><li>Aluno que não vai fazer a prova? Use <b>🚫 Ausente</b> no passo 3.</li></ul>
+<div class="tm"><div class="cap">Passo 1 · Turma e alunos</div><div class="fk">Turma: <b>6º ano A</b></div><div class="fk">✓ 32 alunos carregados</div><div class="fb g hl" style="margin-top:8px">➕ Adicionar aluno</div></div></section>
+
+<section class="tuS" id="tu3"><h2><span class="num">3</span>Lançar as respostas de cada aluno</h2>
+<p>No <b>Passo 2 · Ler os gabaritos</b>, o aluno da vez aparece no topo. Escolha <b>uma</b> das duas formas:</p>
+<div class="tuG"><div class="tuC"><h3>📷 Por foto <span class="tb">mais rápido</span></h3>
+<p style="font-size:13px">Toque em <b>📷 Foto</b> e fotografe a folha de respostas.</p>
+<div class="fo" aria-label="Folha de respostas"><i style="left:4px;top:4px"></i><i style="right:4px;top:4px"></i><i style="left:4px;bottom:4px"></i><i style="right:4px;bottom:4px"></i><div class="bb"><b>01</b><span>A</span><span class="on">B</span><span>C</span><span>D</span></div><div class="bb"><b>02</b><span>A</span><span>B</span><span class="on">C</span><span>D</span></div><div class="bb"><b>03</b><span class="on">A</span><span>B</span><span>C</span><span>D</span></div></div>
+<ul style="font-size:13px"><li>Fotografe <b>de cima</b>, com a folha inteira</li><li>Boa luz, <b>sem sombra</b></li><li>Os <b>4 quadrados pretos</b> dos cantos precisam aparecer</li></ul></div>
+<div class="tuC"><h3>✎ À mão <span class="tb w">sem foto</span></h3>
+<p style="font-size:13px">Toque em <b>✎ À mão</b> e marque a letra de cada questão na tela.</p>
+<div class="tm" style="margin:0;background:var(--card)"><div class="bb"><b>01</b><span>A</span><span class="on">B</span><span>C</span><span>D</span></div><div class="bb"><b>02</b><span>A</span><span>B</span><span class="on">C</span><span>D</span></div><div class="bb"><b>03</b><span class="on">A</span><span>B</span><span>C</span><span>D</span></div></div>
+<p style="font-size:13px">Use quando a foto não ler bem ou a folha estiver rasurada.</p></div></div>
+<div class="tm"><div class="cap">Passo 2 · Ler os gabaritos</div><div class="fk">👤 <b>Ana Souza</b> · prova regular</div><div style="display:flex;gap:8px"><div class="fb hl" style="flex:1">📷 Foto</div><div class="fb g" style="flex:1">✎ À mão</div></div></div>
+<p>Depois de cada leitura, o <b>próximo aluno é selecionado sozinho</b>. Aluno faltou ou foi transferido? Use <b>🚫 Ausente</b> ou <b>⇄ Transferido</b>.</p></section>
+
+<section class="tuS" id="tu4"><h2><span class="num">4</span>Conferir as leituras</h2>
+<p>No <b>Passo 3 · Conferir leituras</b> aparecem as folhas lidas. Toque numa folha para ver o <b>espelho</b> (certas e erradas) e corrigir se precisar.</p>
+<div class="tm"><div class="cap">Passo 3 · Conferir leituras</div><div class="fk" style="display:flex;justify-content:space-between;align-items:center"><span><b>Ana Souza</b><br><span class="tb">leitura ok</span></span><b style="font-size:20px">20<small class="mut">/25</small></b></div><div class="fk hl" style="display:flex;justify-content:space-between;align-items:center;border-color:var(--warn)"><span><b>Bruno Lima</b><br><span class="tb w">⚠ revisar</span></span><b style="font-size:20px">17<small class="mut">/25</small></b></div></div>
+<p>Folhas com <b>aviso</b> merecem uma olhada: refaça a foto ou corrija à mão.</p></section>
+
+<section class="tuS" id="tu5"><h2><span class="num">5</span>Enviar as notas</h2>
+<p>Abra a aba <b>🔎 Notas</b>, escolha a sua turma e siga o caminho que a coordenação pediu:</p>
+<div class="tm"><div class="cap">🔎 Notas · 6º ano A</div><div class="fk">Ana Souza <b style="float:right">20/25</b></div><div class="fk">Bruno Lima <b style="float:right">17/25</b></div></div>
+<div class="tuG">
+<div class="tuC"><h3>A) Enviar a planilha <span class="tb">Excel</span></h3>
+<ul style="font-size:13px"><li>Toque em <b>📊 Baixar / compartilhar Excel do quadro</b>.</li><li>O arquivo é baixado (ou compartilhado direto no celular).</li><li><b>Anexe</b> o arquivo no e-mail ou WhatsApp da coordenação.</li></ul>
+<div class="tm" style="margin:0"><div class="fb hl">📊 Baixar / compartilhar Excel do quadro</div></div></div>
+<div class="tuC"><h3>B) Lançar na planilha <span class="tb w">Google</span></h3>
+<ul style="font-size:13px"><li>Leia a nota de cada aluno no quadro da aba <b>🔎 Notas</b>.</li><li>Abra o grupo <b>Anos Finais</b> e toque no nome do grupo para ver a <b>descrição</b>.</li><li>O <b>link da planilha Google</b> está na descrição do grupo: toque nele para abrir.</li><li>Digite a nota de cada aluno, <b>um por um</b>, na linha dele.</li></ul>
+<div class="tm" style="margin:0"><div class="cap">Grupo · Anos Finais</div><div class="fk"><b>Descrição do grupo</b><br><span class="hl" style="display:inline-block;margin-bottom:14px;color:var(--pri);text-decoration:underline">https://docs.google.com/spreadsheets/…</span></div></div></div></div></section>
+
+<section class="tuS"><h2>💡 Dicas rápidas</h2><ul><li>Seus dados ficam salvos automaticamente neste aparelho.</li><li>Dúvida com o gabarito? Veja a aba <b>📋 Gabaritos</b> e fale com a coordenação.</li></ul>
+<button type="button" class="big" id="tuC2" style="margin-top:8px">Entendi, vamos começar</button></section>
+</div></div><script>
+(function(){const o=document.getElementById("tuO"),c=()=>{o.style.display="none"};
+window.abrirTutorial=function(){o.style.display="block";o.scrollTop=0;document.getElementById("tuC").focus()};
+document.getElementById("tuC").onclick=c;document.getElementById("tuC2").onclick=c;
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&o.style.display==="block")c()});
+document.getElementById("tuH").onclick=window.abrirTutorial;
+o.querySelectorAll(".tuI a").forEach(a=>a.onclick=e=>{e.preventDefault();const t=document.querySelector(a.getAttribute("href"));if(t)t.scrollIntoView({behavior:"smooth"})});})();
+</script>
+<script>
+window.importarPlanilhas=async function(files,msg,inp){
+ const R={arq:0,turmas:0,alunos:0,novas:0,melhoradas:0},ign=[];
+ for(const fl of files){try{
+  const wb=XLSX.read(await fl.arrayBuffer(),{type:"array"}),sn=wb.SheetNames.find(n=>/^respostas/i.test(n));
+  if(!sn){ign.push(fl.name+" (sem a aba “Respostas”)");continue}
+  const rows=XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,defval:""}),H=(rows[0]||[]).map(x=>String(x).trim());
+  const iN=H.indexOf("Nome"),iT=H.indexOf("Turma"),iP=H.indexOf("Prova"),qs=[];
+  H.forEach((h,c)=>{const m=h.match(/^Q(\d+)/);if(m&&+m[1]<=NQ[1])qs.push([+m[1],c])});
+  if(iN<0||iT<0||!qs.length){ign.push(fl.name+" (formato não reconhecido)");continue}
+  const por={};rows.slice(1).forEach(r=>{const nm=String(r[iN]||"").trim(),t=String(r[iT]||"").trim();if(!nm||!t||/^GABARITO/i.test(nm))return;(por[t]=por[t]||[]).push([nm,r])});
+  const S={};
+  for(const[t,L]of Object.entries(por)){
+   if(!BL[t]){ign.push(fl.name+" (turma “"+t+"” desconhecida)");continue}
+   const base=store[t]?store[t].alunos:(ROSTER[t]||[]).map(x=>({nome:x[0],tipo:x[1]})),tp=new Map(base.map(a=>[nn(a.nome),a.tipo])),B={alunos:[],folhas:{1:[],2:[]}};
+   L.forEach(([nm,r])=>{const ai=B.alunos.length,pv=iP>=0?String(r[iP]):"",tipo=/adapt/i.test(pv)?"adaptada":/regul/i.test(pv)?"regular":(tp.get(nn(nm))||"regular");
+    B.alunos.push({nome:nm,tipo});
+    if(qs.every(([q,c])=>/^(sem folha)?$/i.test(String(r[c]).trim())))return;
+    const resp={};for(let q=1;q<=NQ[1];q++)resp[q]=["","BRANCO"];
+    qs.forEach(([q,c])=>{const v=String(r[c]).trim(),m=v.match(/^([A-D])/i);if(m)resp[q]=[m[1].toUpperCase(),/dupla/i.test(v)?"DUPLA":""]});
+    B.folhas[1].push({arq:"planilha",dia:1,ai,resp,conf:true})});
+   S[t]=B}
+  if(Object.keys(S).length){const r=mesclar({store:S});R.arq++;for(const k in r)R[k]+=r[k]}
+ }catch(e){ign.push(fl.name+" (arquivo inválido)")}}
+ if(R.arq)salvarAgora();
+ msg.innerHTML=(R.arq?"<b class=\"ok\">✓ "+R.arq+" planilha(s) importada(s)</b> · "+R.turmas+" turma(s) nova(s) · "+R.alunos+" aluno(s) novo(s) · "+R.novas+" folha(s) nova(s) · "+R.melhoradas+" atualizada(s)":"Nada foi importado.")+(ign.length?"<br><span style=\"color:#f87171\">Ignorado: "+ign.join("; ")+"</span>":"");
+ if(inp)inp.value=""};
+document.getElementById("impX").onchange=e=>importarPlanilhas([...e.target.files],document.getElementById("impM"),e.target);
 </script>
 </body>
 </html>
