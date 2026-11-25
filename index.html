@@ -1635,22 +1635,25 @@ function login(){g.innerHTML='<div id="gt"><h2>Corretor GETECO Tarde · 3º Trim
 function entrar(tur){g.remove();document.body.classList.toggle("coordLogado",!tur);document.body.classList.toggle("naocoord",!!tur);const t=document.getElementById("turma");
  if(tur){if(![...t.options].some(o=>o.value===tur))t.add(new Option(tur,tur));[...t.options].forEach(o=>{if(o.value&&o.value!==tur)o.remove()});t.value=tur;t.dispatchEvent(new Event("change"))}
  const b=document.createElement("div");b.style.cssText="position:fixed;right:8px;bottom:8px;z-index:9;background:#1e293b;color:#fff;padding:6px 10px;border-radius:10px;font-size:12px";b.innerHTML="👤 "+(tur||"Coordenação")+' · <a href="#" style="color:#93c5fd">Sair</a>';b.querySelector("a").onclick=e=>{e.preventDefault();location.reload()};document.body.appendChild(b)}
-function baixarTutorialImg(btn){
+function baixarTutorial(btn,modo){
  const msg=t=>{const m=document.getElementById("am");if(m)m.textContent=t;else if(/^(Não|Erro)/.test(t))alert(t)};
- const tx=btn.textContent;btn.disabled=true;btn.textContent="Gerando imagem…";
+ const tx=btn.textContent;btn.disabled=true;btn.textContent="Gerando…";
  const fim=t=>{btn.disabled=false;btn.textContent=tx;if(t)msg(t)};
+ const salvar=(b,nome)=>{const u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=nome;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),30000)};
  try{
   const W=680,src=document.querySelector("#tuO .tuW");
   const cl=src.cloneNode(true);
-  cl.querySelectorAll(".tuT,.tuI,#tuC2").forEach(e=>e.remove());
+  cl.querySelectorAll(".tuT,.tuI,.tuDl,#tuC2").forEach(e=>e.remove());
   let css="";for(const sh of document.styleSheets){try{for(const r of sh.cssRules)css+=r.cssText+"\n"}catch(e){}}
   const w=document.createElement("div");
   w.setAttribute("style","width:"+W+"px;box-sizing:border-box;padding:20px 16px 24px;background:#eef2f8;color:#14202f;font:15px/1.45 system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;--bg:#eef2f8;--card:#fff;--tx:#14202f;--mut:#64748b;--pri:#2457d6;--pri2:#5b3df5;--priS:#e8eefc;--ok:#12805c;--okS:#dcf5ea;--bad:#c2312d;--badS:#fde8e7;--warn:#a66300;--warnS:#fff1d6;--bd:#dde4ee;--sh:0 1px 2px rgba(20,32,47,.06)");
   const st=document.createElement("style");st.textContent=css+"\n.tuG{grid-template-columns:1fr 1fr!important}";w.appendChild(st);
-  const ti=document.createElement("div");ti.innerHTML='<div style="font-size:24px;font-weight:800;margin:0 0 4px">📖 Corretor GETECO Tarde · Tutorial</div>';w.appendChild(ti);
+  const ti=document.createElement("div");ti.innerHTML='<div style="font-size:24px;font-weight:800;margin:0 0 14px">📖 Corretor GETECO Tarde · Tutorial</div>';w.appendChild(ti);
   while(cl.firstChild)w.appendChild(cl.firstChild);
   const medida=w.cloneNode(true);medida.style.cssText+=";position:absolute;left:-99999px;top:0";document.body.appendChild(medida);
-  const H=Math.ceil(medida.getBoundingClientRect().height)+4;medida.remove();
+  const mr=medida.getBoundingClientRect(),H=Math.ceil(mr.height)+4;
+  const cuts=[...medida.children].filter(e=>e.classList&&e.classList.contains("tuS")).map(e=>Math.round(e.getBoundingClientRect().top-mr.top));
+  medida.remove();
   const xml=new XMLSerializer().serializeToString(w);
   let k=3;while(W*k*H*k>16e6&&k>1)k-=.25;
   const PW=Math.round(W*k),PH=Math.round(H*k);
@@ -1659,26 +1662,48 @@ function baixarTutorialImg(btn){
   img.onload=()=>{try{
    const c=document.createElement("canvas");c.width=PW;c.height=PH;
    const x=c.getContext("2d");x.fillStyle="#eef2f8";x.fillRect(0,0,PW,PH);x.drawImage(img,0,0,PW,PH);
-   c.toBlob(b=>{if(!b)return fim("Não foi possível gerar a imagem neste aparelho.");
-    const u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="Tutorial_Corretor_GETECO.png";document.body.appendChild(a);a.click();a.remove();
-    setTimeout(()=>URL.revokeObjectURL(u),30000);fim("Imagem do tutorial gerada (Tutorial_Corretor_GETECO.png).")},"image/png")
-  }catch(e){fim("Não foi possível gerar a imagem neste aparelho.")}};
-  img.onerror=()=>fim("Não foi possível gerar a imagem neste aparelho.");
+   if(modo!=="pdf"){
+    return c.toBlob(b=>{if(!b)return fim("Não foi possível gerar a imagem neste aparelho.");salvar(b,"Tutorial_Corretor_GETECO.png");fim("Imagem do tutorial gerada (Tutorial_Corretor_GETECO.png).")},"image/png")}
+   /* PDF: páginas de largura A4, quebradas entre os passos */
+   const pageH=Math.round(W*842/595),bd=[0,...cuts.slice(1).map(y=>y-7),H],pg=[];let ini=0;
+   for(let i=1;i<bd.length-1;i++){if(bd[i+1]-ini>pageH&&bd[i]>ini){pg.push([ini,bd[i]]);ini=bd[i]}}
+   pg.push([ini,H]);
+   const enc=t=>{const a=new Uint8Array(t.length);for(let i=0;i<t.length;i++)a[i]=t.charCodeAt(i)&255;return a};
+   const parts=[],offs=[];let len=0;const push=u=>{parts.push(u);len+=u.length};
+   const obj=(n,head,bin)=>{offs[n]=len;if(bin){push(enc(n+" 0 obj\n"+head+"\nstream\n"));push(bin);push(enc("\nendstream\nendobj\n"))}else push(enc(n+" 0 obj\n"+head+"\nendobj\n"))};
+   push(enc("%PDF-1.4\n"));
+   obj(1,"<</Type/Catalog/Pages 2 0 R>>");
+   obj(2,"<</Type/Pages/Kids["+pg.map((_,i)=>(3+3*i)+" 0 R").join(" ")+"]/Count "+pg.length+">>");
+   pg.forEach(([y0,y1],i)=>{
+    const sc=document.createElement("canvas"),sh=Math.max(1,Math.round((y1-y0)*k));sc.width=PW;sc.height=sh;
+    const sx=sc.getContext("2d");sx.fillStyle="#eef2f8";sx.fillRect(0,0,PW,sh);sx.drawImage(c,0,Math.round(y0*k),PW,sh,0,0,PW,sh);
+    const b64=sc.toDataURL("image/jpeg",.92).split(",")[1],bin=atob(b64),jb=new Uint8Array(bin.length);for(let q=0;q<bin.length;q++)jb[q]=bin.charCodeAt(q);
+    const hp=((y1-y0)*595/W).toFixed(2),n=3+3*i;
+    obj(n,"<</Type/Page/Parent 2 0 R/MediaBox[0 0 595 "+hp+"]/Resources<</XObject<</Im0 "+(n+2)+" 0 R>>>>/Contents "+(n+1)+" 0 R>>");
+    const cs="q 595 0 0 "+hp+" 0 0 cm /Im0 Do Q";
+    obj(n+1,"<</Length "+cs.length+">>",enc(cs));
+    obj(n+2,"<</Type/XObject/Subtype/Image/Width "+PW+"/Height "+sh+"/ColorSpace/DeviceRGB/BitsPerComponent 8/Filter/DCTDecode/Length "+jb.length+">>",jb)});
+   const N=2+3*pg.length,xo=len;let xr="xref\n0 "+(N+1)+"\n0000000000 65535 f \n";
+   for(let n=1;n<=N;n++)xr+=String(offs[n]).padStart(10,"0")+" 00000 n \n";
+   xr+="trailer\n<</Size "+(N+1)+"/Root 1 0 R>>\nstartxref\n"+xo+"\n%%EOF";push(enc(xr));
+   salvar(new Blob(parts,{type:"application/pdf"}),"Tutorial_Corretor_GETECO.pdf");fim("PDF do tutorial gerado (Tutorial_Corretor_GETECO.pdf).")
+  }catch(e){fim("Não foi possível gerar o arquivo neste aparelho.")}};
+  img.onerror=()=>fim("Não foi possível gerar o arquivo neste aparelho.");
   img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
- }catch(e){fim("Erro ao gerar a imagem do tutorial.")}
+ }catch(e){fim("Erro ao gerar o tutorial.")}
 }
-window.baixarTutorialImg=baixarTutorialImg;
+window.baixarTutorial=baixarTutorial;
 function admin(){const ks=[];["6º ABC","6º DEF","7º ABC","7º DE"].forEach(x=>["regular","adaptada"].forEach(t=>ks.push(x+"|"+t)));
  g.innerHTML='<div id="gt"><h2>Coordenação</h2><b>Gabaritos</b> (25 letras por linha, formato bloco|modalidade=letras)<textarea id="ag" rows="9">'+ks.map(k=>k+"="+(GAB[k]||"")).join("\n")+'</textarea><b>Importar planilhas dos professores</b> (Excel “quadro” com acertos por disciplina, total e nota; as letras marcadas são opcionais)<br><label class="btn" for="aiF" style="margin:6px 0">📥 Escolher planilhas…</label><input id="aiF" type="file" accept=".xlsx,.xls,.csv" multiple><div id="aiM" style="margin-bottom:8px"></div><b>Tutorial do corretor</b><br><button id="atu" type="button" style="margin:6px 0 12px">🖼️ Baixar tutorial em imagem (PNG)</button><br><b>Novo código da coordenação</b> (opcional)<input id="an"><button id="as">Salvar</button><button id="ao">Abrir o corretor</button><div id="am"></div></div>';
  document.getElementById("as").onclick=()=>{document.getElementById("ag").value.split("\n").forEach(l=>{const m=l.split("=");if(m.length<2)return;const v=m[1].toUpperCase().replace(/[^ABCD]/g,"");if(v.length===25)GAB[m[0].trim()]=v});
   const n=document.getElementById("an").value.trim();try{localStorage.setItem("cg_gab2",JSON.stringify(GAB));if(n){localStorage.setItem("cg_adm",n);adm=n}}catch(e){}document.getElementById("am").textContent="Salvo. Linhas sem 25 letras válidas foram ignoradas."};
- document.getElementById("ao").onclick=()=>entrar(null);document.getElementById("atu").onclick=e=>baixarTutorialImg(e.currentTarget);document.getElementById("aiF").onchange=e=>importarPlanilhas([...e.target.files],document.getElementById("aiM"),e.target)}
+ document.getElementById("ao").onclick=()=>entrar(null);document.getElementById("atu").onclick=e=>baixarTutorial(e.currentTarget,"png");document.getElementById("aiF").onchange=e=>importarPlanilhas([...e.target.files],document.getElementById("aiM"),e.target)}
 login()})();
 </script>
 <style>
 #tuH{margin-left:auto;background:rgba(255,255,255,.2);min-height:40px;padding:0 12px;font-size:14px;border-radius:12px;white-space:nowrap}#tuH+#thm{margin-left:8px}
 #gt .tuBtn{display:flex;width:100%;flex-direction:column;align-items:center;gap:2px;margin:14px 0 0;padding:14px 16px;font-size:17px;background:linear-gradient(135deg,#12805c,#2457d6)}#gt .tuBtn small{font-size:12.5px;font-weight:500;opacity:.9}
-body:not(.coordLogado) #tuImg{display:none!important}
+body:not(.coordLogado) .tuDl{display:none!important}
 #tuO{position:fixed;inset:0;z-index:80;background:var(--bg);color:var(--tx);overflow:auto;display:none;-webkit-overflow-scrolling:touch}
 .tuW{max-width:680px;margin:0 auto;padding:calc(env(safe-area-inset-top,0px) + 12px) 12px calc(env(safe-area-inset-bottom,0px) + 40px)}
 .tuT{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;background:var(--bg);padding:8px 0 10px}.tuT h1{flex:1;margin:0;font-size:19px}
@@ -1699,7 +1724,8 @@ body:not(.coordLogado) #tuImg{display:none!important}
 .tuLink{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:#fff;font-weight:700;border-radius:12px;padding:13px;margin-top:10px;background:linear-gradient(135deg,#12805c,#2457d6)}
 .tuX{display:grid;grid-template-columns:repeat(3,1fr);font-size:12px}.tuX div{border:1px solid var(--bd);padding:5px 7px;background:var(--card)}.tuX .h{background:var(--okS);color:var(--ok);font-weight:700}
 </style><div id="tuO" role="dialog" aria-modal="true" aria-label="Tutorial"><div class="tuW">
-<div class="tuT"><h1>📖 Como usar o Corretor</h1><button type="button" class="sm coordOnly" id="tuImg" title="Baixar o tutorial completo em imagem">🖼️ Baixar imagem</button><button type="button" class="ghost sm" id="tuC">✕ Fechar</button></div>
+<div class="tuT"><h1>📖 Como usar o Corretor</h1><button type="button" class="ghost sm" id="tuC">✕ Fechar</button></div>
+<div class="tuDl coordOnly" style="display:flex;gap:8px;margin:0 0 12px"><button type="button" id="tuImg" style="flex:1">🖼️ Baixar imagem</button><button type="button" id="tuPdf" style="flex:1">📄 Baixar PDF</button></div>
 <p class="mut" style="margin:0 0 10px">Passo a passo para corrigir a prova e entregar as notas. Leva poucos minutos.</p>
 <div class="tuI"><a href="#tu1">1 Entrar</a><a href="#tu2">2 Alunos</a><a href="#tu3">3 Lançar</a><a href="#tu4">4 Conferir</a><a href="#tu5">5 Enviar notas</a></div>
 
@@ -1747,7 +1773,7 @@ body:not(.coordLogado) #tuImg{display:none!important}
 </div></div><script>
 (function(){const o=document.getElementById("tuO"),c=()=>{o.style.display="none"};
 window.abrirTutorial=function(){o.style.display="block";o.scrollTop=0;document.getElementById("tuC").focus()};
-document.getElementById("tuImg").onclick=e=>window.baixarTutorialImg(e.currentTarget);document.getElementById("tuC").onclick=c;document.getElementById("tuC2").onclick=c;
+document.getElementById("tuImg").onclick=e=>window.baixarTutorial(e.currentTarget,"png");document.getElementById("tuPdf").onclick=e=>window.baixarTutorial(e.currentTarget,"pdf");document.getElementById("tuC").onclick=c;document.getElementById("tuC2").onclick=c;
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&o.style.display==="block")c()});
 document.getElementById("tuH").onclick=window.abrirTutorial;
 o.querySelectorAll(".tuI a").forEach(a=>a.onclick=e=>{e.preventDefault();const t=document.querySelector(a.getAttribute("href"));if(t)t.scrollIntoView({behavior:"smooth"})});})();
