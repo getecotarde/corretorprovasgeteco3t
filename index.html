@@ -1652,12 +1652,13 @@ function baixarTutorialImg(btn){
   const medida=w.cloneNode(true);medida.style.cssText+=";position:absolute;left:-99999px;top:0";document.body.appendChild(medida);
   const H=Math.ceil(medida.getBoundingClientRect().height)+4;medida.remove();
   const xml=new XMLSerializer().serializeToString(w);
-  const svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'"><foreignObject x="0" y="0" width="100%" height="100%">'+xml+'</foreignObject></svg>';
+  let k=3;while(W*k*H*k>16e6&&k>1)k-=.25;
+  const PW=Math.round(W*k),PH=Math.round(H*k);
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+PW+'" height="'+PH+'" viewBox="0 0 '+W+' '+H+'"><foreignObject x="0" y="0" width="'+W+'" height="'+H+'">'+xml+'</foreignObject></svg>';
   const img=new Image();
   img.onload=()=>{try{
-   let k=2;while(W*k*H*k>16e6&&k>1)k-=.25;
-   const c=document.createElement("canvas");c.width=Math.round(W*k);c.height=Math.round(H*k);
-   const x=c.getContext("2d");x.fillStyle="#eef2f8";x.fillRect(0,0,c.width,c.height);x.scale(k,k);x.drawImage(img,0,0,W,H);
+   const c=document.createElement("canvas");c.width=PW;c.height=PH;
+   const x=c.getContext("2d");x.fillStyle="#eef2f8";x.fillRect(0,0,PW,PH);x.drawImage(img,0,0,PW,PH);
    c.toBlob(b=>{if(!b)return fim("Não foi possível gerar a imagem neste aparelho.");
     const u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="Tutorial_Corretor_GETECO.png";document.body.appendChild(a);a.click();a.remove();
     setTimeout(()=>URL.revokeObjectURL(u),30000);fim("Imagem do tutorial gerada (Tutorial_Corretor_GETECO.png).")},"image/png")
